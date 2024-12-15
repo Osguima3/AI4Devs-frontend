@@ -56,7 +56,7 @@ Update #file:PositionProcess.tsx #file:KanbanBoard.tsx and #file:CandidateCard.t
 
 ---
 
-The score is not visible, the size of the divs is reduced to 0
+The score is not visible, the size of the divs is reduced to 0.
 
 ---
 
@@ -72,3 +72,7 @@ With the payload being:
     "currentInterviewStep": "3" // id of the new step 
 }
 ```
+
+---
+
+Make all columns have the same height.
