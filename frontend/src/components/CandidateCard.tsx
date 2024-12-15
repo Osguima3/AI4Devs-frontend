@@ -1,4 +1,6 @@
+import React from 'react';
 import { Candidate } from "../types/hiring";
+import { Card } from 'react-bootstrap';
 
 interface CandidateCardProps {
   candidate: Candidate;
@@ -6,23 +8,22 @@ interface CandidateCardProps {
 
 const CandidateCard = ({ candidate }: CandidateCardProps) => {
   return (
-    <div className="p-4 bg-white border rounded-lg hover:shadow-md transition-shadow">
-      <div className="flex items-center justify-between">
-        <h4 className="font-medium text-gray-900">{candidate.fullName}</h4>
-        <div className="flex gap-1">
-          {Array.from({ length: 5 }).map((_, i) => (
-            <div
-              key={i}
-              className={`w-2 h-2 rounded-full ${
-                i < candidate.averageScore
-                  ? "bg-green-500"
-                  : "bg-gray-200"
-              }`}
-            />
-          ))}
+    <Card className="mb-3 shadow-sm">
+      <Card.Body>
+        <div className="d-flex justify-content-between align-items-center">
+          <h5 className="mb-0">{candidate.fullName}</h5>
+          <div className="d-flex gap-1">
+            {Array.from({ length: 5 }).map((_, i) => (
+              <div
+                key={i}
+                className={`rounded-circle ${i < candidate.averageScore ? "bg-success" : "bg-secondary"}`}
+                style={{ width: '10px', height: '10px' }}
+              />
+            ))}
+          </div>
         </div>
-      </div>
-    </div>
+      </Card.Body>
+    </Card>
   );
 };
 

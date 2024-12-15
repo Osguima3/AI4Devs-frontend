@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { ArrowLeft } from "lucide-react";
-import { useParams } from 'react-router-dom';
-import { Container, Spinner, Alert } from 'react-bootstrap';
+import { useParams, useNavigate } from 'react-router-dom';
+import { Container, Spinner, Alert, Button } from 'react-bootstrap';
 import KanbanBoard from './KanbanBoard';
 
 const PositionProcess: React.FC = () => {
     const { id } = useParams<{ id: string }>();
+    const navigate = useNavigate();
     const [positionData, setPositionData] = useState<any>(null);
     const [candidates, setCandidates] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
@@ -44,6 +45,10 @@ const PositionProcess: React.FC = () => {
         fetchCandidates();
     }, [id]);
 
+    const handleBackClick = () => {
+        navigate('/positions');
+    };
+
     if (loading) {
         return (
             <Container className="mt-5">
@@ -61,17 +66,15 @@ const PositionProcess: React.FC = () => {
     }
 
     return (
-        <div className="min-h-screen bg-gray-50">
-            <div className="container mx-auto px-4 py-8">
-                <div className="flex items-center gap-4 mb-8">
-                    <button className="p-2 hover:bg-gray-200 rounded-full transition-colors">
-                        <ArrowLeft className="h-5 w-5" />
-                    </button>
-                    <h1 className="text-2xl font-bold text-gray-900">{positionData?.interviewFlow?.positionName}</h1>
-                </div>
-                <KanbanBoard steps={positionData?.interviewFlow?.interviewFlow?.interviewSteps} candidates={candidates} />
+        <Container className="mt-5">
+            <div className="d-flex align-items-center mb-4">
+                <Button variant="link" onClick={handleBackClick}>
+                    <ArrowLeft className="h-5 w-5" />
+                </Button>
+                <h1 className="ms-3">{positionData?.interviewFlow?.positionName}</h1>
             </div>
-        </div>
+            <KanbanBoard steps={positionData?.interviewFlow?.interviewFlow?.interviewSteps} candidates={candidates} />
+        </Container>
     );
 };
 
